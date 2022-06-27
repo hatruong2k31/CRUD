@@ -4,7 +4,7 @@ var config = {
     user: "root", // database username
     password: "Truonghtbn222", // database password
     port: 3306, // default MySQL port
-    db: "hust", // database name
+    db: "test", // database name
   },
 };
 

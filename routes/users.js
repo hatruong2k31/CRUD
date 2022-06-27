@@ -28,16 +28,18 @@ app.get('/add', function(req, res, next){
 	// render to views/user/add.ejs
 	res.render('user/add', {
 		title: 'Add New User',
+		id: '',
 		name: '',
-		age: '',
+		phone: '',
 		email: ''		
 	})
 })
 
 // ADD NEW USER POST ACTION
-app.post('/add', function(req, res, next){	
+app.post('/add', function(req, res, next){
+	req.assert('id', 'Id is required').notEmpty()
 	req.assert('name', 'Name is required').notEmpty()           //Validate name
-	req.assert('age', 'Age is required').notEmpty()             //Validate age
+	req.assert('phone', 'Phone is required').notEmpty()             //Validate phone
     req.assert('email', 'A valid email is required').isEmail()  //Validate email
 
     var errors = req.validationErrors()
@@ -54,8 +56,9 @@ app.post('/add', function(req, res, next){
 		req.sanitize('username').trim(); // returns 'a user'
 		********************************************/
 		var user = {
+			id: req.sanitize('id').escape().trim(),
 			name: req.sanitize('name').escape().trim(),
-			age: req.sanitize('age').escape().trim(),
+			phone: req.sanitize('phone').escape().trim(),
 			email: req.sanitize('email').escape().trim()
 		}
 		
@@ -68,8 +71,9 @@ app.post('/add', function(req, res, next){
 					// render to views/user/add.ejs
 					res.render('user/add', {
 						title: 'Add New User',
+						id: user.id,
 						name: user.name,
-						age: user.age,
+						phone: user.phone,
 						email: user.email					
 					})
 				} else {				
@@ -78,8 +82,9 @@ app.post('/add', function(req, res, next){
 					// render to views/user/add.ejs
 					res.render('user/add', {
 						title: 'Add New User',
+						id: '',
 						name: '',
-						age: '',
+						phone: '',
 						email: ''					
 					})
 				}
@@ -100,7 +105,7 @@ app.post('/add', function(req, res, next){
         res.render('user/add', { 
             title: 'Add New User',
             name: req.body.name,
-            age: req.body.age,
+            phone: req.body.phone,
             email: req.body.email
         })
     }
@@ -124,7 +129,7 @@ app.get('/edit/(:id)', function(req, res, next){
 					//data: rows[0],
 					id: rows[0].id,
 					name: rows[0].name,
-					age: rows[0].age,
+					phone: rows[0].phone,
 					email: rows[0].email					
 				})
 			}			
@@ -135,7 +140,7 @@ app.get('/edit/(:id)', function(req, res, next){
 // EDIT USER POST ACTION
 app.put('/edit/(:id)', function(req, res, next) {
 	req.assert('name', 'Name is required').notEmpty()           //Validate name
-	req.assert('age', 'Age is required').notEmpty()             //Validate age
+	req.assert('phone', 'phone is required').notEmpty()             //Validate phone
     req.assert('email', 'A valid email is required').isEmail()  //Validate email
 
     var errors = req.validationErrors()
@@ -153,7 +158,7 @@ app.put('/edit/(:id)', function(req, res, next) {
 		********************************************/
 		var user = {
 			name: req.sanitize('name').escape().trim(),
-			age: req.sanitize('age').escape().trim(),
+			phone: req.sanitize('phone').escape().trim(),
 			email: req.sanitize('email').escape().trim()
 		}
 		
@@ -168,7 +173,7 @@ app.put('/edit/(:id)', function(req, res, next) {
 						title: 'Edit User',
 						id: req.params.id,
 						name: req.body.name,
-						age: req.body.age,
+						phone: req.body.phone,
 						email: req.body.email
 					})
 				} else {
@@ -179,7 +184,7 @@ app.put('/edit/(:id)', function(req, res, next) {
 						title: 'Edit User',
 						id: req.params.id,
 						name: req.body.name,
-						age: req.body.age,
+						phone: req.body.phone,
 						email: req.body.email
 					})
 				}
@@ -201,7 +206,7 @@ app.put('/edit/(:id)', function(req, res, next) {
             title: 'Edit User',            
 			id: req.params.id, 
 			name: req.body.name,
-			age: req.body.age,
+			phone: req.body.phone,
 			email: req.body.email
         })
     }
