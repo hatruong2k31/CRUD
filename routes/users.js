@@ -4,18 +4,18 @@ var app = express()
 // SHOW LIST OF USERS
 app.get('/', function(req, res, next) {
 	req.getConnection(function(error, conn) {
-		conn.query('SELECT * FROM users ORDER BY id DESC',function(err, rows, fields) {
+		conn.query('SELECT * FROM users ORDER BY id ASC',function(err, rows, fields) {
 			//if(err) throw err
 			if (err) {
 				req.flash('error', err)
 				res.render('user/list', {
-					title: 'User List', 
+					title: '', 
 					data: ''
 				})
 			} else {
 				// render to views/user/list.ejs template file
 				res.render('user/list', {
-					title: 'User List', 
+					title: '', 
 					data: rows
 				})
 			}
@@ -28,20 +28,21 @@ app.get('/add', function(req, res, next){
 	// render to views/user/add.ejs
 	res.render('user/add', {
 		title: 'Add New User',
-		id: '',
 		name: '',
 		phone: '',
-		email: ''		
+		email: '',
+		cardId: '',
+		balance: ''
 	})
 })
 
 // ADD NEW USER POST ACTION
 app.post('/add', function(req, res, next){
-	req.assert('id', 'Id is required').notEmpty()
-	req.assert('name', 'Name is required').notEmpty()           //Validate name
-	req.assert('phone', 'Phone is required').notEmpty()             //Validate phone
+	req.assert('name', 'Name is required').notEmpty()       //Validate name
+	req.assert('phone', 'Phone is required').notEmpty()   //Validate phone
     req.assert('email', 'A valid email is required').isEmail()  //Validate email
-
+	req.assert('cardId', 'CardId is required').notEmpty()
+	// req.assert('balance', 'Balance is required')
     var errors = req.validationErrors()
     
     if( !errors ) {   //No errors were found.  Passed Validation!
@@ -56,10 +57,11 @@ app.post('/add', function(req, res, next){
 		req.sanitize('username').trim(); // returns 'a user'
 		********************************************/
 		var user = {
-			id: req.sanitize('id').escape().trim(),
 			name: req.sanitize('name').escape().trim(),
 			phone: req.sanitize('phone').escape().trim(),
-			email: req.sanitize('email').escape().trim()
+			email: req.sanitize('email').escape().trim(),
+			cardId: req.sanitize('cardId').escape().trim(),
+			balance: req.sanitize('balance').escape().trim(),
 		}
 		
 		req.getConnection(function(error, conn) {
@@ -71,10 +73,11 @@ app.post('/add', function(req, res, next){
 					// render to views/user/add.ejs
 					res.render('user/add', {
 						title: 'Add New User',
-						id: user.id,
 						name: user.name,
 						phone: user.phone,
-						email: user.email					
+						email: user.email,
+						cardId: user.cardId,
+						balance: user.balance					
 					})
 				} else {				
 					req.flash('success', 'Data added successfully!')
@@ -82,10 +85,11 @@ app.post('/add', function(req, res, next){
 					// render to views/user/add.ejs
 					res.render('user/add', {
 						title: 'Add New User',
-						id: '',
 						name: '',
 						phone: '',
-						email: ''					
+						email: '',
+						cardId: '',
+						balance: ''			
 					})
 				}
 			})
@@ -106,7 +110,9 @@ app.post('/add', function(req, res, next){
             title: 'Add New User',
             name: req.body.name,
             phone: req.body.phone,
-            email: req.body.email
+            email: req.body.email,
+			cardId: req.body.cardId,
+			balance: req.body.balance
         })
     }
 })
@@ -130,7 +136,9 @@ app.get('/edit/(:id)', function(req, res, next){
 					id: rows[0].id,
 					name: rows[0].name,
 					phone: rows[0].phone,
-					email: rows[0].email					
+					email: rows[0].email,
+					cardId: rows[0].cardId,
+					balance: rows[0].balance,			
 				})
 			}			
 		})
@@ -139,9 +147,11 @@ app.get('/edit/(:id)', function(req, res, next){
 
 // EDIT USER POST ACTION
 app.put('/edit/(:id)', function(req, res, next) {
-	req.assert('name', 'Name is required').notEmpty()           //Validate name
-	req.assert('phone', 'phone is required').notEmpty()             //Validate phone
-    req.assert('email', 'A valid email is required').isEmail()  //Validate email
+	req.assert('name', 'Name is required').notEmpty()           //Validate all
+	req.assert('phone', 'Phone is required').notEmpty()
+    req.assert('email', 'A valid email is required').isEmail()
+	req.assert('cardId', 'CardId is required').notEmpty()
+	req.assert('balance', 'Balance is required').notEmpty()
 
     var errors = req.validationErrors()
     
@@ -159,7 +169,9 @@ app.put('/edit/(:id)', function(req, res, next) {
 		var user = {
 			name: req.sanitize('name').escape().trim(),
 			phone: req.sanitize('phone').escape().trim(),
-			email: req.sanitize('email').escape().trim()
+			email: req.sanitize('email').escape().trim(),
+			cardId: req.sanitize('cardId').escape().trim(),
+			balance: req.sanitize('balance').escape().trim()
 		}
 		
 		req.getConnection(function(error, conn) {
@@ -174,7 +186,9 @@ app.put('/edit/(:id)', function(req, res, next) {
 						id: req.params.id,
 						name: req.body.name,
 						phone: req.body.phone,
-						email: req.body.email
+						email: req.body.email,
+						cardId: req.body.cardId,
+						balance: req.body.balance
 					})
 				} else {
 					req.flash('success', 'Data updated successfully!')
@@ -185,7 +199,9 @@ app.put('/edit/(:id)', function(req, res, next) {
 						id: req.params.id,
 						name: req.body.name,
 						phone: req.body.phone,
-						email: req.body.email
+						email: req.body.email,
+						cardId: req.body.cardId,
+						balance: req.body.balance
 					})
 				}
 			})
@@ -207,7 +223,9 @@ app.put('/edit/(:id)', function(req, res, next) {
 			id: req.params.id, 
 			name: req.body.name,
 			phone: req.body.phone,
-			email: req.body.email
+			email: req.body.email,
+			cardId: req.body.cardId,
+			balance: req.body.balance
         })
     }
 })

@@ -14,10 +14,6 @@ including header content which is common for all pages
 <form action="/users/add" method="post" name="form1">
 	<table width="30%" border="0">
 		<tr> 
-			<td>Id</td>
-			<td><input type="text" name="id" id="id" value="<%= id %>" /></td>
-		</tr>
-		<tr> 
 			<td>Name</td>
 			<td><input type="text" name="name" id="name" value="<%= name %>" /></td>
 		</tr>
@@ -28,6 +24,14 @@ including header content which is common for all pages
 		<tr> 
 			<td>Email</td>
 			<td><input type="text" name="email" value="<%= email %>" /></td>
+		</tr>
+		<tr> 
+			<td>CardID</td>
+			<td><input type="text" name="cardId" value="<%= cardId %>" /></td>
+		</tr>
+		<tr> 
+			<td>Balance</td>
+			<td><input type="text" name="balance" value="<%= balance %>" /></td>
 		</tr>
 		<tr> 
 			<td></td>
