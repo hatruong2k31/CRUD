@@ -27,7 +27,7 @@ app.get('/', function(req, res, next) {
 app.get('/add', function(req, res, next){	
 	// render to views/user/add.ejs
 	res.render('user/add', {
-		title: 'Add New User',
+		title: '',
 		name: '',
 		phone: '',
 		email: '',
@@ -42,7 +42,7 @@ app.post('/add', function(req, res, next){
 	req.assert('phone', 'Phone is required').notEmpty()   //Validate phone
     req.assert('email', 'A valid email is required').isEmail()  //Validate email
 	req.assert('cardId', 'CardId is required').notEmpty()
-	// req.assert('balance', 'Balance is required')
+	req.assert('cardId', 'CardId is unique')
     var errors = req.validationErrors()
     
     if( !errors ) {   //No errors were found.  Passed Validation!
@@ -72,7 +72,7 @@ app.post('/add', function(req, res, next){
 					
 					// render to views/user/add.ejs
 					res.render('user/add', {
-						title: 'Add New User',
+						title: '',
 						name: user.name,
 						phone: user.phone,
 						email: user.email,
@@ -84,7 +84,7 @@ app.post('/add', function(req, res, next){
 					
 					// render to views/user/add.ejs
 					res.render('user/add', {
-						title: 'Add New User',
+						title: '',
 						name: '',
 						phone: '',
 						email: '',
@@ -107,7 +107,7 @@ app.post('/add', function(req, res, next){
 		 * because req.param('name') is deprecated
 		 */ 
         res.render('user/add', { 
-            title: 'Add New User',
+            title: '',
             name: req.body.name,
             phone: req.body.phone,
             email: req.body.email,
