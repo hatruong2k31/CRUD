@@ -40,7 +40,7 @@ app.set("view engine", "ejs");
 var index = require("./routes/index");
 var users = require("./routes/users");
 var atm = require("./routes/atm");
-var battery = require("./routes/batterry");
+var battery = require("./routes/battery");
 
 /**
  * Express Validator Middleware for Form Validation
@@ -112,10 +112,6 @@ app.use("/", index);
 app.use("/users", users);
 app.use("/atm", atm);
 app.use("battery", battery);
-
-// app.listen(4000, function(){
-// 	console.log('Server running at port 3000: http://127.0.0.1:3000')
-// })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
