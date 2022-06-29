@@ -2,10 +2,10 @@ var express = require("express");
 var app = express();
 
 // SHOW LIST OF ATM
-app.get("/atm", function (req, res, next) {
+app.get("/", function (req, res, next) {
   req.getConnection(function (error, conn) {
     conn.query(
-      "SELECT * FROM atm ORDER BY ATMID ASC",
+      "SELECT * FROM atm ORDER BY atmId ASC",
       function (err, rows, fields) {
         //if(err) throw err
         if (err) {
@@ -15,7 +15,7 @@ app.get("/atm", function (req, res, next) {
             data: "",
           });
         } else {
-          // render to views/user/list.ejs template file
+          // render to views/atm/list.ejs template file
           res.render("atm/list", {
             title: "",
             data: rows,
@@ -25,3 +25,5 @@ app.get("/atm", function (req, res, next) {
     );
   });
 });
+
+module.exports = app;

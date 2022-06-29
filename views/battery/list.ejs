@@ -1,0 +1,35 @@
+<%- include ../layouts/header.ejs %> <% if (messages.error) { %>
+<p style="color: red"><%- messages.error %></p>
+<% } %> <% if (messages.success) { %>
+<p style="color: green"><%- messages.success %></p>
+<% } %>
+
+<div style="text-align: center">
+  <h1>Battery List</h1>
+</div>
+
+<!-- table -->
+<div class="mx-auto">
+  <table style="text-align: center" class="mx-auto" width="80%" border="1">
+    <tr style="text-align: center; background-color: #ccc">
+      <th>Type Of Battery</th>
+      <th>Unit Price</th>
+    </tr>
+
+    <!--
+            Using FOREACH LOOP for the atm array
+            
+            myArray.forEach(function(el, index) {
+                // el - current element, i - index
+            });
+        -->
+    <% if (data) { %> <% data.forEach(function(battery){ %>
+    <tr>
+      <td><%= battery.typyOfBattery %></td>
+      <td><%= battery.unitPrice %></td>
+    </tr>
+    <% }) %> <% } %>
+  </table>
+</div>
+
+<%- include ../layouts/footer.ejs %>

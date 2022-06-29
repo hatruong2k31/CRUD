@@ -131,7 +131,7 @@ app.get('/edit/(:id)', function(req, res, next){
 			else { // if user found
 				// render to views/user/edit.ejs template file
 				res.render('user/edit', {
-					title: 'Edit User', 
+					title: '', 
 					//data: rows[0],
 					id: rows[0].id,
 					name: rows[0].name,
