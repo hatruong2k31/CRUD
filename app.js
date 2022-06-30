@@ -37,7 +37,7 @@ app.set("view engine", "ejs");
  * import routes/index.js
  * import routes/users.js
  */
-var index = require("./routes/index");
+var home = require("./routes/home");
 var users = require("./routes/users");
 var atm = require("./routes/atm");
 var battery = require("./routes/battery");
@@ -108,10 +108,10 @@ app.use(
 );
 app.use(flash());
 
-app.use("/", index);
+app.use("/home", home);
 app.use("/users", users);
 app.use("/atm", atm);
-app.use("battery", battery);
+app.use("/battery", battery);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

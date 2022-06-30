@@ -8,18 +8,17 @@ including header content which is common for all pages
 <% } %>
 
 <div style="text-align: center">
-  <h1>All Users List</h1>
+  <h1>Users List</h1>
 </div>
 
 <div class="mx-auto">
-  <table style="text-align: center" class="mx-auto" width="80%" border="1">
+  <table style="text-align: center" class="mx-auto" width="72%" border="1">
     <tr style="text-align: center; background-color: #ccc">
       <th>Id</th>
-      <th>Name</th>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Phone</th>
       <th>Email</th>
-      <th>Balance</th>
-      <th>CardID</th>
       <th>Action</th>
     </tr>
 
@@ -33,11 +32,10 @@ including header content which is common for all pages
     <% if (data) { %> <% data.forEach(function(user){ %>
     <tr>
       <td><%= user.id %></td>
-      <td><%= user.name %></td>
+      <td><%= user.firstName %></td>
+      <td><%= user.lastName %></td>
       <td><%= user.phone %></td>
       <td><%= user.email %></td>
-      <td><%= user.balance %></td>
-      <td><%= user.cardId %></td>
       <td>
         <div>
           <form

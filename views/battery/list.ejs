@@ -10,22 +10,22 @@
 
 <!-- table -->
 <div class="mx-auto">
-  <table style="text-align: center" class="mx-auto" width="50%" border="1">
+  <table style="text-align: center" class="mx-auto" width="30%" border="1">
     <tr style="text-align: center; background-color: #ccc">
-      <th>Type Of Battery</th>
+      <th>Battery ID</th>
       <th>Unit Price</th>
     </tr>
 
     <!--
-            Using FOREACH LOOP for the atm array
+    Using FOREACH LOOP for the battery array
             
-            myArray.forEach(function(el, index) {
-                // el - current element, i - index
-            });
-        -->
+    myArray.forEach(function(el, index) {
+      // el - current element, i - index
+      });
+    -->
     <% if (data) { %> <% data.forEach(function(battery){ %>
     <tr>
-      <td><%= battery.typyOfBattery %></td>
+      <td><%= battery.batteryId %></td>
       <td><%= battery.unitPrice %></td>
     </tr>
     <% }) %> <% } %>

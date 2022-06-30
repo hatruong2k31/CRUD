@@ -10,13 +10,13 @@ app.get("/", function (req, res, next) {
         //if(err) throw err
         if (err) {
           req.flash("error", err);
-          res.render("user/list", {
+          res.render("users/list", {
             title: "",
             data: "",
           });
         } else {
           // render to views/user/list.ejs template file
-          res.render("user/list", {
+          res.render("users/list", {
             title: "",
             data: rows,
           });
@@ -29,23 +29,21 @@ app.get("/", function (req, res, next) {
 // SHOW ADD USER FORM
 app.get("/add", function (req, res, next) {
   // render to views/user/add.ejs
-  res.render("user/add", {
+  res.render("users/add", {
     title: "",
-    name: "",
+    firstName: "",
+    lastName: "",
     phone: "",
-    email: "",
-    cardId: "",
-    balance: "",
+    email: ""
   });
 });
 
 // ADD NEW USER POST ACTION
 app.post("/add", function (req, res, next) {
-  req.assert("name", "Name is required").notEmpty(); //Validate name
+  req.assert("firstName", "First Name is required").notEmpty();
+  req.assert("lastName", "Last Name is required").notEmpty(); //Validate name
   req.assert("phone", "Phone is required").notEmpty(); //Validate phone
   req.assert("email", "A valid email is required").isEmail(); //Validate email
-  req.assert("cardId", "CardId is required").notEmpty();
-  req.assert("cardId", "CardId is unique");
   var errors = req.validationErrors();
 
   if (!errors) {
@@ -61,39 +59,37 @@ app.post("/add", function (req, res, next) {
 		req.sanitize('username').trim(); // returns 'a user'
 		********************************************/
     var user = {
-      name: req.sanitize("name").escape().trim(),
+      name: req.sanitize("firstName").escape().trim(),
+      cardId: req.sanitize("lastName").escape().trim(),
       phone: req.sanitize("phone").escape().trim(),
       email: req.sanitize("email").escape().trim(),
-      cardId: req.sanitize("cardId").escape().trim(),
-      balance: req.sanitize("balance").escape().trim(),
+      cardId: req.sanitize("cardId").escape().trim()
     };
 
     req.getConnection(function (error, conn) {
-      conn.query("INSERT INTO users SET ?", user, function (err, result) {
+      conn.query1("INSERT INTO users SET ?", user, function (err, result) {
         //if(err) throw err
         if (err) {
           req.flash("error", err);
 
           // render to views/user/add.ejs
-          res.render("user/add", {
+          res.render("users/add", {
             title: "",
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             phone: user.phone,
-            email: user.email,
-            cardId: user.cardId,
-            balance: user.balance,
+            email: user.email
           });
         } else {
-          req.flash("success", "Data added successfully!");
+          req.flash("success", "User added successfully!");
 
           // render to views/user/add.ejs
-          res.render("user/add", {
+          res.render("users/add", {
             title: "",
-            name: "",
+            firstName: "",
+            lastName: "",
             phone: "",
-            email: "",
-            cardId: "",
-            balance: "",
+            email: ""
           });
         }
       });
@@ -110,13 +106,12 @@ app.post("/add", function (req, res, next) {
      * Using req.body.name
      * because req.param('name') is deprecated
      */
-    res.render("user/add", {
+    res.render("users/add", {
       title: "",
-      name: req.body.name,
+      firstName: req.body.name,
+      lastName: req.body.name,
       phone: req.body.phone,
-      email: req.body.email,
-      cardId: req.body.cardId,
-      balance: req.body.balance,
+      email: req.body.email
     });
   }
 });
@@ -137,7 +132,7 @@ app.get("/edit/(:id)", function (req, res, next) {
         } else {
           // if user found
           // render to views/user/edit.ejs template file
-          res.render("user/edit", {
+          res.render("users/edit", {
             title: "",
             //data: rows[0],
             id: rows[0].id,
@@ -193,7 +188,7 @@ app.put("/edit/(:id)", function (req, res, next) {
             req.flash("error", err);
 
             // render to views/user/add.ejs
-            res.render("user/edit", {
+            res.render("users/edit", {
               title: "Edit User",
               id: req.params.id,
               name: req.body.name,
@@ -206,7 +201,7 @@ app.put("/edit/(:id)", function (req, res, next) {
             req.flash("success", "Data updated successfully!");
 
             // render to views/user/add.ejs
-            res.render("user/edit", {
+            res.render("usersedit", {
               title: "Edit User",
               id: req.params.id,
               name: req.body.name,
@@ -231,7 +226,7 @@ app.put("/edit/(:id)", function (req, res, next) {
      * Using req.body.name
      * because req.param('name') is deprecated
      */
-    res.render("user/edit", {
+    res.render("users/edit", {
       title: "Edit User",
       id: req.params.id,
       name: req.body.name,
