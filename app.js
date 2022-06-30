@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-const port = 4000;
+var port = 4000;
 var mysql = require("mysql");
 
 /**
@@ -34,13 +34,13 @@ app.use(myConnection(mysql, dbOptions, "pool"));
 app.set("view engine", "ejs");
 
 /**
- * import routes/index.js
- * import routes/users.js
+ * import routes
  */
 var home = require("./routes/home");
-var users = require("./routes/users");
+var user = require("./routes/user");
 var atm = require("./routes/atm");
 var battery = require("./routes/battery");
+var card = require("./routes/card");
 
 /**
  * Express Validator Middleware for Form Validation
@@ -109,9 +109,10 @@ app.use(
 app.use(flash());
 
 app.use("/home", home);
-app.use("/users", users);
+app.use("/user", user);
 app.use("/atm", atm);
 app.use("/battery", battery);
+// app.use("/card", card);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

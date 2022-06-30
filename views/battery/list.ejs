@@ -9,11 +9,11 @@
 </div>
 
 <!-- table -->
-<div class="mx-auto">
+<div class="mx-auto mt-4">
   <table style="text-align: center" class="mx-auto" width="30%" border="1">
     <tr style="text-align: center; background-color: #ccc">
       <th>Battery ID</th>
-      <th>Unit Price</th>
+      <th>Unit Price (VND)</th>
     </tr>
 
     <!--
@@ -25,7 +25,7 @@
     -->
     <% if (data) { %> <% data.forEach(function(battery){ %>
     <tr>
-      <td><%= battery.batteryId %></td>
+      <td><%= battery.Id %></td>
       <td><%= battery.unitPrice %></td>
     </tr>
     <% }) %> <% } %>

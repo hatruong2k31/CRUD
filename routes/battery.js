@@ -5,7 +5,7 @@ var app = express();
 app.get("/", function (req, res, next) {
   req.getConnection(function (error, conn) {
     conn.query(
-      "SELECT * FROM battery ORDER BY unitPrice ASC",
+      "SELECT * FROM battery ORDER BY Id ASC",
       function (err, rows, fields) {
         //if(err) throw err
         if (err) {

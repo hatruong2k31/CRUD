@@ -11,7 +11,7 @@ including header content which is common for all pages
   <h1>Users List</h1>
 </div>
 
-<div class="mx-auto">
+<div class="mx-auto mt-4">
   <table style="text-align: center" class="mx-auto" width="72%" border="1">
     <tr style="text-align: center; background-color: #ccc">
       <th>Id</th>
@@ -23,7 +23,7 @@ including header content which is common for all pages
     </tr>
 
     <!--
-		Using FOREACH LOOP for the users array
+		Using FOREACH LOOP for the user array
 		
 		myArray.forEach(function(el, index) {
 			// el - current element, i - index
@@ -31,7 +31,7 @@ including header content which is common for all pages
 	-->
     <% if (data) { %> <% data.forEach(function(user){ %>
     <tr>
-      <td><%= user.id %></td>
+      <td><%= user.Id %></td>
       <td><%= user.firstName %></td>
       <td><%= user.lastName %></td>
       <td><%= user.phone %></td>
@@ -40,7 +40,7 @@ including header content which is common for all pages
         <div>
           <form
             method="get"
-            action="/users/edit/<%= user.id %>"
+            action="/user/edit/<%= user.Id %>"
             style="float: left"
           >
             <input
@@ -55,7 +55,7 @@ including header content which is common for all pages
         <div>
           <form
             method="post"
-            action="/users/delete/<%= user.id %>"
+            action="/user/delete/<%= user.Id %>"
             style="float: right"
           >
             <input
