@@ -5,18 +5,18 @@ var app = express();
 app.get("/", function (req, res, next) {
   req.getConnection(function (error, conn) {
     conn.query(
-      "SELECT * FROM users ORDER BY id ASC",
+      "SELECT * FROM user ORDER BY id ASC",
       function (err, rows, fields) {
         //if(err) throw err
         if (err) {
           req.flash("error", err);
-          res.render("users/list", {
+          res.render("user/list", {
             title: "",
             data: "",
           });
         } else {
           // render to views/user/list.ejs template file
-          res.render("users/list", {
+          res.render("user/list", {
             title: "",
             data: rows,
           });
@@ -29,7 +29,7 @@ app.get("/", function (req, res, next) {
 // SHOW ADD USER FORM
 app.get("/add", function (req, res, next) {
   // render to views/user/add.ejs
-  res.render("users/add", {
+  res.render("user/add", {
     title: "",
     firstName: "",
     lastName: "",
@@ -62,18 +62,17 @@ app.post("/add", function (req, res, next) {
       name: req.sanitize("firstName").escape().trim(),
       cardId: req.sanitize("lastName").escape().trim(),
       phone: req.sanitize("phone").escape().trim(),
-      email: req.sanitize("email").escape().trim(),
-      cardId: req.sanitize("cardId").escape().trim()
+      email: req.sanitize("email").escape().trim()
     };
 
     req.getConnection(function (error, conn) {
-      conn.query1("INSERT INTO users SET ?", user, function (err, result) {
+      conn.query1("INSERT INTO user SET ?", user, function (err, result) {
         //if(err) throw err
         if (err) {
           req.flash("error", err);
 
           // render to views/user/add.ejs
-          res.render("users/add", {
+          res.render("user/add", {
             title: "",
             firstName: user.firstName,
             lastName: user.lastName,
@@ -84,7 +83,7 @@ app.post("/add", function (req, res, next) {
           req.flash("success", "User added successfully!");
 
           // render to views/user/add.ejs
-          res.render("users/add", {
+          res.render("user/add", {
             title: "",
             firstName: "",
             lastName: "",
@@ -106,7 +105,7 @@ app.post("/add", function (req, res, next) {
      * Using req.body.name
      * because req.param('name') is deprecated
      */
-    res.render("users/add", {
+    res.render("user/add", {
       title: "",
       firstName: req.body.name,
       lastName: req.body.name,
@@ -120,7 +119,7 @@ app.post("/add", function (req, res, next) {
 app.get("/edit/(:id)", function (req, res, next) {
   req.getConnection(function (error, conn) {
     conn.query(
-      "SELECT * FROM users WHERE id = ?",
+      "SELECT * FROM user WHERE id = ?",
       [req.params.id],
       function (err, rows, fields) {
         if (err) throw err;
@@ -132,7 +131,7 @@ app.get("/edit/(:id)", function (req, res, next) {
         } else {
           // if user found
           // render to views/user/edit.ejs template file
-          res.render("users/edit", {
+          res.render("user/edit", {
             title: "",
             //data: rows[0],
             id: rows[0].id,
@@ -200,8 +199,8 @@ app.put("/edit/(:id)", function (req, res, next) {
           } else {
             req.flash("success", "Data updated successfully!");
 
-            // render to views/user/add.ejs
-            res.render("usersedit", {
+            // render to views/user/edit.ejs
+            res.render("users/edit", {
               title: "Edit User",
               id: req.params.id,
               name: req.body.name,
@@ -244,7 +243,7 @@ app.delete("/delete/(:id)", function (req, res, next) {
 
   req.getConnection(function (error, conn) {
     conn.query(
-      "DELETE FROM users WHERE id = " + req.params.id,
+      "DELETE FROM user WHERE id = " + req.params.id,
       user,
       function (err, result) {
         //if(err) throw err
