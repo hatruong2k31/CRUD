@@ -42,6 +42,7 @@ var atm = require("./routes/atm");
 var battery = require("./routes/battery");
 var card = require("./routes/card");
 
+var users = require("./controller/users");
 /**
  * Express Validator Middleware for Form Validation
  */
@@ -108,11 +109,16 @@ app.use(
 );
 app.use(flash());
 
+
+// html
 app.use("/home", home);
 app.use("/user", user);
 app.use("/atm", atm);
 app.use("/battery", battery);
-// app.use("/card", card);
+app.use("/card", card);
+
+//json
+app.use("/users", users);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

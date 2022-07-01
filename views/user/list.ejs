@@ -12,14 +12,16 @@ including header content which is common for all pages
 </div>
 
 <div class="mx-auto mt-4">
-  <table style="text-align: center" class="mx-auto" width="72%" border="1">
-    <tr style="text-align: center; background-color: #ccc">
-      <th>Id</th>
+  <table style="text-align: center" class="mx-auto" width="70%" border="1">
+    <tr style="text-align: center; background-color: rgb(77, 177, 77)">
+      <th>User Id</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Phone</th>
       <th>Email</th>
       <th>Action</th>
+      <th>Card Id</th>
+      <th>Balance</th>
     </tr>
 
     <!--
@@ -36,6 +38,8 @@ including header content which is common for all pages
       <td><%= user.lastName %></td>
       <td><%= user.phone %></td>
       <td><%= user.email %></td>
+      <td><%= user.cardId%></td>
+      <td><%= user.balance %></td>
       <td>
         <div>
           <form
@@ -56,7 +60,7 @@ including header content which is common for all pages
           <form
             method="post"
             action="/user/delete/<%= user.Id %>"
-            style="float: right"
+            style="float: left"
           >
             <input
               type="submit"

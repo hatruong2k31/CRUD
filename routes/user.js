@@ -35,15 +35,19 @@ app.get("/add", function (req, res, next) {
     lastName: "",
     phone: "",
     email: "",
+    cardId: "",
+    balance: "",
   });
 });
 
 // ADD NEW USER POST ACTION
 app.post("/add", function (req, res, next) {
-  req.assert("firstName", "First Name is required").notEmpty();
-  req.assert("lastName", "Last Name is required").notEmpty(); //Validate name
-  req.assert("phone", "Phone is required").notEmpty(); //Validate phone
-  req.assert("email", "A valid email is required").isEmail(); //Validate email
+  req.assert("firstName", "First Name is required").notEmpty(); //Validate
+  req.assert("lastName", "Last Name is required").notEmpty();
+  req.assert("phone", "Phone is required").notEmpty();
+  req.assert("email", "A valid email is required").isEmail();
+  req.assert("cardId", "Card ID is required").notEmpty();
+  req.assert("balance", "Balance is required").notEmpty();
   var errors = req.validationErrors();
 
   if (!errors) {
@@ -63,6 +67,8 @@ app.post("/add", function (req, res, next) {
       lastName: req.sanitize("lastName").escape().trim(),
       phone: req.sanitize("phone").escape().trim(),
       email: req.sanitize("email").escape().trim(),
+      cardId: req.sanitize("cardId").escape().trim(),
+      balance: req.sanitize("balance").escape().trim(),
     };
 
     req.getConnection(function (error, conn) {
@@ -78,6 +84,8 @@ app.post("/add", function (req, res, next) {
             lastName: user.lastName,
             phone: user.phone,
             email: user.email,
+            cardId: user.phone,
+            balance: user.email,
           });
         } else {
           req.flash("success", "User added successfully!");
@@ -89,6 +97,8 @@ app.post("/add", function (req, res, next) {
             lastName: "",
             phone: "",
             email: "",
+            cardId: "",
+            balance: "",
           });
         }
       });
@@ -111,6 +121,8 @@ app.post("/add", function (req, res, next) {
       lastName: req.body.lastName,
       phone: req.body.phone,
       email: req.body.email,
+      cardId: req.body.cardId,
+      balance: req.body.balance,
     });
   }
 });
@@ -139,6 +151,8 @@ app.get("/edit/(:Id)", function (req, res, next) {
             lastName: rows[0].lastName,
             phone: rows[0].phone,
             email: rows[0].email,
+            cardId: rows[0].cardId,
+            balance: rows[0].balance,
           });
         }
       }
@@ -152,6 +166,8 @@ app.put("/edit/(:Id)", function (req, res, next) {
   req.assert("lastName", "Last Name is required").notEmpty(); //Validate all
   req.assert("phone", "Phone is required").notEmpty();
   req.assert("email", "A valid email is required").isEmail();
+  req.assert("cardId", "Card ID is required").notEmpty();
+  req.assert("balance", "Balance is required").notEmpty();
 
   var errors = req.validationErrors();
 
@@ -172,6 +188,8 @@ app.put("/edit/(:Id)", function (req, res, next) {
       lastName: req.sanitize("lastName").escape().trim(),
       phone: req.sanitize("phone").escape().trim(),
       email: req.sanitize("email").escape().trim(),
+      cardId: req.sanitize("cardId").escape().trim(),
+      balance: req.sanitize("balance").escape().trim(),
     };
 
     req.getConnection(function (error, conn) {
@@ -191,6 +209,8 @@ app.put("/edit/(:Id)", function (req, res, next) {
               lastName: req.body.lastName,
               phone: req.body.phone,
               email: req.body.email,
+              cardId: req.body.cardId,
+              balance: req.body.balance,
             });
           } else {
             req.flash("success", "Data updated successfully!");
@@ -203,6 +223,8 @@ app.put("/edit/(:Id)", function (req, res, next) {
               lastName: req.body.lastName,
               phone: req.body.phone,
               email: req.body.email,
+              cardId: req.body.cardId,
+              balance: req.body.balance,
             });
           }
         }
@@ -227,6 +249,8 @@ app.put("/edit/(:Id)", function (req, res, next) {
       lastName: req.body.lastName,
       phone: req.body.phone,
       email: req.body.email,
+      cardId: req.body.cardId,
+      balance: req.body.balance,
     });
   }
 });
