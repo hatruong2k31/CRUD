@@ -43,6 +43,11 @@ app.get("/:cardId", function (req, res) {
 
 // update balance
 app.put("/update/:cardId", function (req, res) {
+  req.send({message: "balance not empty"})
+  var user = {
+    balance: req.sanitize("balance").escape().trim(),
+  };
+
   req.getConnection(function (error, conn) {
     conn.query(
       "UPDATE user SET balance = balance - 10000 WHERE cardId =",

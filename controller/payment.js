@@ -1,24 +1,37 @@
 var express = require("express");
 var app = express();
 
-//Update balance
-app.put("/edit/(:Id)", function (req, res, next) {
+//add new payment
+app.post("/add", function (req, res, next) {
+  var errors = req.validationErrors();
 
+  if (!errors) {
     var payment = {
-        // : req.sanitize("firstName").escape().trim(),
-        // : req.sanitize("lastName").escape().trim(),
-        // : req.sanitize("phone").escape().trim(),
-        // : req.sanitize("email").escape().trim(),
-      };
+      Id: req.sanitize("Id").escape().trim(),
+      userId: req.sanitize("userId").escape().trim(),
+      atmId: req.sanitize("atmId").escape().trim(),
+      batteryId: req.sanitize("batteryId").escape().trim(),
+      amount: req.sanitize("amount").escape().trim(),
+      totalPrice: req.sanitize("totalPrice").escape().trim(),
+    };
 
-    
-
-    var error_msg = "";
-    errors.forEach(function (error) {
-      error_msg += error.msg + "<br>";
+    req.getConnection(function (error, conn) {
+      conn.query("INSERT INTO payment SET ?", payment, function (err, result) {
+        //if(err) throw err
+        if (err) {
+          res.status(400).send({
+            message: "Cann't added on payment."
+          })
+        } else {
+          res.send({
+            message: "Payment added successfully!"
+          })
+        }
+      });
     });
-    req.flash("error", error_msg);
-
+  } else {
+  
+  }
 });
 
 
