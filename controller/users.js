@@ -50,7 +50,7 @@ app.put("/update/:cardId", function (req, res) {
 
   req.getConnection(function (error, conn) {
     conn.query(
-      "UPDATE user SET balance = balance - 10000 WHERE cardId =",
+      "UPDATE user SET balance = balance - 10000 WHERE cardId =" +
       req.params.cardId,
       user,
       function (error, results) {

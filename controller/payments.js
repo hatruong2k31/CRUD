@@ -25,6 +25,7 @@ app.post("/add", function (req, res, next) {
         } else {
           res.send({
             message: "Payment added successfully!",
+            data: result,
           });
         }
       });
