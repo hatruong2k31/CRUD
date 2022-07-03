@@ -20,20 +20,20 @@ app.post("/add", function (req, res, next) {
         //if(err) throw err
         if (err) {
           res.status(400).send({
-            message: "Cann't added on payment."
-          })
+            message: "Cann't added on payment.",
+          });
         } else {
           res.send({
-            message: "Payment added successfully!"
-          })
+            message: "Payment added successfully!",
+          });
         }
       });
     });
   } else {
-  
+    res.status(400).send({
+      message: "error",
+    });
   }
 });
-
-
 
 module.exports = app;
