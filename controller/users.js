@@ -42,21 +42,23 @@ app.get("/:cardId", function (req, res) {
 });
 
 // update balance
-app.put("/update/:cardId", function (req, res) {
-  req.send({message: "balance not empty"})
-  var user = {
-    balance: req.sanitize("balance").escape().trim(),
-  };
+app.put("/update", function (req, res) {
+  // req.send({ message: "balance = "+req.body.balance, });
+  console.log("he");
+  // var user = {
+  //   balance: req.sanitize("balance").escape().trim(),
+  // };
 
   req.getConnection(function (error, conn) {
     conn.query(
-      "UPDATE user SET balance = balance - 10000 WHERE cardId =" +
-      req.params.cardId,
-      user,
+      "UPDATE user SET balance =? WHERE cardId =?",
+      [req.body.balance, req.body.cardId],
+
       function (error, results) {
+        console.log("ok");
         if (error) throw error;
 
-        if (!req.params.cardId) {
+        if (!req.body.cardId) {
           return res.status(400).send({
             message: "Please provide Card Id for update balance",
           });
