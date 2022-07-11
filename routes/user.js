@@ -163,7 +163,7 @@ app.get("/edit/(:Id)", function (req, res, next) {
 // EDIT USER POST ACTION
 app.put("/edit/(:Id)", function (req, res, next) {
   req.assert("firstName", "First Name is required").notEmpty();
-  req.assert("lastName", "Last Name is required").notEmpty(); //Validate all
+  req.assert("lastName", "Last Name is required").notEmpty();
   req.assert("phone", "Phone is required").notEmpty();
   req.assert("email", "A valid email is required").isEmail();
   req.assert("cardId", "Card ID is required").notEmpty();
@@ -203,7 +203,7 @@ app.put("/edit/(:Id)", function (req, res, next) {
 
             // render to views/user/add.ejs
             res.render("user/edit", {
-              title: "Edit User",
+              title: "",
               Id: req.params.Id,
               firstName: req.body.firstName,
               lastName: req.body.lastName,
@@ -217,7 +217,7 @@ app.put("/edit/(:Id)", function (req, res, next) {
 
             // render to views/user/edit.ejs
             res.render("user/edit", {
-              title: "Edit User",
+              title: "",
               Id: req.params.Id,
               firstName: req.body.firstName,
               lastName: req.body.lastName,
@@ -243,7 +243,7 @@ app.put("/edit/(:Id)", function (req, res, next) {
      * because req.param('name') is deprecated
      */
     res.render("user/edit", {
-      title: "Edit User",
+      title: "",
       Id: req.params.Id,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
