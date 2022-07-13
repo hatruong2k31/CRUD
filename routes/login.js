@@ -74,16 +74,4 @@ app.get("/logout", function (req, res) {
   res.redirect("/login");
 });
 
-//Show home page if login succes
-// app.get("/home", function (req, res, next) {
-//   if (req.session.loggedin) {
-//     res.render("home", {
-//       title: "",
-//     });
-//   } else {
-//     req.flash("success", "Please login first!");
-//     res.redirect("/login");
-//   }
-// });
-
 module.exports = app;

@@ -1,6 +1,5 @@
 var express = require("express");
 var app = express();
-var port = 4000;
 
 
 var mysql = require("mysql");
@@ -20,13 +19,6 @@ app.use(myConnection(mysql, db, "pool"));
 
 app.set("view engine", "ejs");
 
-
-var home = require("./routes/home");
-var user = require("./routes/user");
-var atm = require("./routes/atm");
-var battery = require("./routes/battery");
-var login = require("./routes/login");
-// var card = require("./routes/card");
 
 var users = require("./restController/users");
 var payments = require("./restController/payments");
@@ -74,18 +66,16 @@ app.use(
 app.use(flash());
 
 // web
-app.use("/home", home);
-app.use("/user", user);
-app.use("/atm", atm);
-app.use("/battery", battery);
-app.use("/", login);
-// app.use("/card", card);
+var route = require("./routes");
+route(app)
+
 
 // rest
 app.use("/users", users);
 app.use("/payments", payments);
 
 
+var port = 4000;
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
