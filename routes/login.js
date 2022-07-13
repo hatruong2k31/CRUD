@@ -11,6 +11,15 @@ app.get("/", function (req, res, next) {
   });
 });
 
+app.get("/login", function (req, res, next) {
+  // render to views/user/add.ejs
+  res.render("login/login", {
+    title: "",
+    admin: "",
+    password: "",
+  });
+});
+
 // Show Logout
 app.get("/logout", function (req, res) {
   req.session.destroy();
@@ -19,12 +28,12 @@ app.get("/logout", function (req, res) {
 });
 
 // Authenticate admin
-app.post("/authentication", function (req, res, next) {
+app.post("/auth", function (req, res, next) {
   var admin = req.body.admin;
   var password = req.body.password;
 
-  connection.query(
-    "SELECT * FROM mydb WHERE admin = ? AND password = ?",
+  conn.query(
+    "SELECT * FROM admin WHERE admin = ? AND password = ?",
     [admin, password],
     function (err, rows, fields) {
       if (err) throw err;
@@ -34,10 +43,10 @@ app.post("/authentication", function (req, res, next) {
         req.flash("error", "Please correct enter Admin and Password!");
         res.redirect("/login");
       } else {
-        // if user found
+        // if admin found
         // render to views/home.js template file
         req.session.loggedin = true;
-        req.session.name = name;
+        req.session.admin = admin;
         res.redirect("/home");
       }
     }

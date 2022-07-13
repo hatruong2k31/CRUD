@@ -40,6 +40,7 @@ var home = require("./routes/home");
 var user = require("./routes/user");
 var atm = require("./routes/atm");
 var battery = require("./routes/battery");
+var login = require("./routes/login");
 // var card = require("./routes/card");
 
 var users = require("./controller/users");
@@ -115,6 +116,7 @@ app.use("/home", home);
 app.use("/user", user);
 app.use("/atm", atm);
 app.use("/battery", battery);
+app.use("/", login);
 // app.use("/card", card);
 
 //json

@@ -26,7 +26,7 @@ app.get("/:cardId", function (req, res) {
       function (error, results, fields) {
         if (error) throw error;
 
-        if (!req.params.cardId) {
+        if (results.length < 1) {
           res.status(400).send({
             message: "user not found with cardId = " + req.params.cardId,
           });
@@ -53,12 +53,12 @@ app.put("/update", function (req, res) {
     conn.query(
       "UPDATE user SET balance =? WHERE cardId =?",
       [req.body.balance, req.body.cardId],
-
+      
       function (error, results) {
-        console.log("ok");
+        console.log("lo");
         if (error) throw error;
 
-        if (!req.body.cardId) {
+        if (results.length < 1) {
           return res.status(400).send({
             message: "Please provide Card Id for update balance",
           });
