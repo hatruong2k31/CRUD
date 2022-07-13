@@ -14,8 +14,6 @@
       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
       crossorigin="anonymous"
     />
-    <!-- include the stylesheet file -->
-    <link href="../public/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <% if (messages.error) { %>
@@ -24,14 +22,13 @@
     <p style="color: green"><%- messages.success %></p>
     <% } %>
 
-    <div class="login mt-4" style="text-align: center">
-      <h1>Login</h1>
+    <div class="login mt-4">
+      <h1 style="text-align: center">Login</h1>
       <form action="/auth" method="post" class="mt-4" name="form1">
         <table style="text-align: center" class="mx-auto">
           <tr>
             <td>
-              <label for="username">
-                <!-- font awesome icon -->
+              <label for="admin">
                 <i class="fas fa-user"></i>
               </label>
               <input
@@ -58,7 +55,9 @@
             </td>
           </tr>
         </table>
-        <input class="mt-2" type="submit" value="Login" />
+        <div style="text-align: center">
+          <input class="mt-2" type="submit" value="Login" />
+        </div>
       </form>
     </div>
   </body>
