@@ -2,15 +2,8 @@ var express = require("express");
 var app = express();
 
 app.get("/", function (req, res, next) {
-  if (req.session.loggedin){
-    // render to views/index.ejs template file
-  res.render("home", { title: "", name: req.session.admin });
-  } else {
-    
-    req.flash('success', 'Please login first!');
-    res.redirect('/login');
-  }
-  
+  // render to views/index.ejs template file
+  res.render("home", { title: "" });
 });
 
 /**

@@ -1,5 +1,6 @@
 var express = require("express");
 var app = express();
+var session = require("express-session")
 
 // Show Login form
 app.get("/", function (req, res, next) {
@@ -33,7 +34,7 @@ app.post("/auth", function (req, res, next) {
 
     req.getConnection(function (error, conn) {
       conn.query(
-        "SELECT * FROM admin WHERE admin = ? AND password = ?",
+        "SELECT * FROM account WHERE admin = ? AND password = ?",
         [admin, password],
         function (err, rows, fields) {
           if (err) throw err;
@@ -69,7 +70,7 @@ app.post("/auth", function (req, res, next) {
 
 // Show Logout
 app.get("/logout", function (req, res) {
-  req.session.destroy();
+  req.session.destroy(null);
   req.flash("success", "Login Again Here");
   res.redirect("/login");
 });

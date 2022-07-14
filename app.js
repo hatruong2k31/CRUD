@@ -20,8 +20,8 @@ app.use(myConnection(mysql, db, "pool"));
 app.set("view engine", "ejs");
 
 
-var users = require("./restController/users");
-var payments = require("./restController/payments");
+var users = require("./restRoutes/users");
+var payments = require("./restRoutes/payments");
 
 
 var expressValidator = require("express-validator");
@@ -69,13 +69,11 @@ app.use(flash());
 var route = require("./routes");
 route(app)
 
-
 // rest
 app.use("/users", users);
 app.use("/payments", payments);
 
 
-var port = 4000;
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(config.port, () => {
+  console.log(`Example app listening on port ${config.port}`);
 });
