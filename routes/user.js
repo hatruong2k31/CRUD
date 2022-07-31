@@ -94,8 +94,8 @@ app.post("/add", function (req, res, next) {
             lastName: user.lastName,
             phone: user.phone,
             email: user.email,
-            cardId: user.phone,
-            balance: user.email,
+            cardId: user.cardId,
+            balance: user.balance,
           });
         } else {
           req.flash("success", "User added successfully!");
@@ -169,7 +169,7 @@ app.get("/edit/(:Id)", function (req, res, next) {
       );
     });
   } else {
-    req.flash("success", "Please login first!");
+    req.flash("error", "Please login first!");
     res.redirect("/login");
   }
 });
