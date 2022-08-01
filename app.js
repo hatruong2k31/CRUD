@@ -55,15 +55,15 @@ app.use(
 
 app.use(flash());
 
-// web
+// web and rest
 var route = require("./routes");
 route(app);
 
 // rest
-var users = require("./restRoutes/users");
-var payments = require("./restRoutes/payments");
-app.use("/users", users);
-app.use("/payments", payments);
+// var users = require("./restRoutes/users");
+// var payments = require("./restRoutes/payments");
+// app.use("/users", users);
+// app.use("/payments", payments);
 
 app.listen(config.port, () => {
   console.log(`Example app listening on port ${config.port}`);

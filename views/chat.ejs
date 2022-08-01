@@ -1,0 +1,56 @@
+<%- include ../layouts/header.ejs %> <% if (messages.error) { %>
+<p style="color: red"><%- messages.error %></p>
+<% } %> <% if (messages.success) { %>
+<p style="color: green"><%- messages.success %></p>
+<% } %>
+
+<div class="card" id="container">
+  <h1 class="text-center mt-2" style="height: 10%">Chatbox</h1>
+  <div class="row w-100 m-0" style="height: 90%">
+    <div class="col-md-8 border h-100">
+      <div id="chat-messages"></div>
+      <div class="d-flex mt-3">
+        <input class="form-control" id="chat-input" /><button
+          class="btn btn-success"
+          type="submit"
+          onclick="chat()"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+    <div class="col-md-2 border p-2 h-100">
+      <h3 class="text-success text-center">Online users</h3>
+      <div id="online-users" style="height: 94%; overflow: auto"></div>
+    </div>
+    <div class="col-md-2 border p-2 h-100">
+      <h3 class="text-success text-center">Your profile</h3>
+      <div id="profile" style="height: 94%; overflow: auto">
+        <div class="m-1">
+          <img
+            id="avatar-profile"
+            src="./image/guest.png"
+            class="rounded-circle img-thumbnail"
+          />
+          <strong id="display-name-profile">Guest</strong>
+        </div>
+        <div class="m-2">
+          <label>Display name</label
+          ><input class="form-control" id="display-name-input" value="Guest" />
+          <label>Avatar url</label
+          ><input
+            class="form-control"
+            id="avatar-input"
+            placeholder="An url of image"
+          />
+          <button class="btn btn-primary mt-2" onclick="updateProfile()">
+            Update
+          </button>
+          <p id="updated-notify" class="text-success m-2" hidden>Updated</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include layouts/footer.ejs %>
